@@ -1,0 +1,208 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { Clock, IndianRupee, FileText, ArrowRight, CheckCircle2 } from "lucide-react";
+import { getCourseBySlug } from "@/lib/data/courses";
+import { formatCurrency } from "@/lib/format";
+import { Button } from "@/components/ui/button";
+import { FadeIn } from "@/components/shared/fade-in";
+
+export const revalidate = 60;
+
+type Props = { params: Promise<{ slug: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const course = await getCourseBySlug(slug);
+
+  if (!course) return { title: "Course Not Found" };
+
+  return {
+    title: course.title,
+    description: course.description.slice(0, 160),
+    openGraph: {
+      title: course.title,
+      description: course.description.slice(0, 160),
+      images: course.thumbnail ? [{ url: course.thumbnail }] : undefined,
+    },
+  };
+}
+
+export default async function CourseDetailsPage({ params }: Props) {
+  const { slug } = await params;
+  const course = await getCourseBySlug(slug);
+
+  if (!course) notFound();
+
+  const demoVideos = [course.demoVideo1, course.demoVideo2].filter(Boolean) as string[];
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: course.title,
+    description: course.description,
+    provider: {
+      "@type": "Organization",
+      name: "PrimeEdge Software Institute",
+      sameAs: process.env.NEXT_PUBLIC_SITE_URL,
+    },
+    offers: {
+      "@type": "Offer",
+      price: course.price,
+      priceCurrency: "INR",
+    },
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <section className="relative overflow-hidden bg-primary text-white">
+        <div
+          className="pointer-events-none absolute -top-32 right-[-10%] h-96 w-96 rounded-full bg-accent/25 blur-[120px]"
+          aria-hidden
+        />
+        <div className="container-edge relative grid gap-10 py-16 sm:py-20 lg:grid-cols-[1.3fr_1fr] lg:items-center">
+          <FadeIn>
+            <p className="text-sm font-semibold tracking-wide text-accent uppercase">Course</p>
+            <h1 className="mt-3 text-3xl font-semibold tracking-tight text-balance sm:text-4xl lg:text-5xl">
+              {course.title}
+            </h1>
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-300">
+              {course.description}
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-slate-300">
+              <span className="flex items-center gap-2">
+                <Clock className="size-4 text-accent" aria-hidden />
+                {course.duration}
+              </span>
+              <span className="flex items-center gap-2">
+                <IndianRupee className="size-4 text-accent" aria-hidden />
+                {formatCurrency(course.price)}
+              </span>
+            </div>
+
+            <Button asChild variant="accent" size="xl" className="mt-8">
+              <Link href={`/enroll?course=${course.slug}`}>
+                Enroll Now <ArrowRight className="size-4" />
+              </Link>
+            </Button>
+          </FadeIn>
+
+          {course.thumbnail && (
+            <FadeIn delay={0.1}>
+              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
+                <Image src={course.thumbnail} alt={course.title} fill className="object-cover" priority />
+              </div>
+            </FadeIn>
+          )}
+        </div>
+      </section>
+
+      <section className="py-20 sm:py-24">
+        <div className="container-edge grid gap-16 lg:grid-cols-[1.4fr_1fr]">
+          <div className="space-y-16">
+            {course.highlights.length > 0 && (
+              <FadeIn>
+                <h2 className="text-2xl font-semibold tracking-tight text-foreground">
+                  Course Highlights
+                </h2>
+                <ul className="mt-6 space-y-4">
+                  {course.highlights.map((highlight, i) => (
+                    <li key={i} className="flex items-start gap-3 text-base text-muted-foreground">
+                      <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-success" aria-hidden />
+                      {highlight}
+                    </li>
+                  ))}
+                </ul>
+              </FadeIn>
+            )}
+
+            {demoVideos.length > 0 && (
+              <FadeIn delay={0.1}>
+                <h2 className="text-2xl font-semibold tracking-tight text-foreground">Demo Videos</h2>
+                <div className="mt-6 grid gap-6 sm:grid-cols-2">
+                  {demoVideos.map((src, i) => (
+                    <div
+                      key={i}
+                      className="aspect-video overflow-hidden rounded-2xl border border-border bg-black"
+                    >
+                      <iframe
+                        src={src}
+                        title={`${course.title} demo video ${i + 1}`}
+                        className="h-full w-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        loading="lazy"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </FadeIn>
+            )}
+          </div>
+
+          <div className="space-y-6 lg:sticky lg:top-24 lg:self-start">
+            <FadeIn delay={0.05}>
+              <div className="rounded-2xl border border-border bg-card p-7">
+                <p className="text-sm font-medium text-muted-foreground">Course Fee</p>
+                <p className="mt-1 text-3xl font-semibold text-foreground">
+                  {formatCurrency(course.price)}
+                </p>
+                <Button asChild variant="accent" size="xl" className="mt-6 w-full">
+                  <Link href={`/enroll?course=${course.slug}`}>Enroll Now</Link>
+                </Button>
+
+                {course.syllabusPdf && (
+                  <a
+                    href={course.syllabusPdf}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 flex items-center justify-center gap-2 rounded-lg border border-border py-3 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+                  >
+                    <FileText className="size-4" aria-hidden />
+                    Download Syllabus (PDF)
+                  </a>
+                )}
+              </div>
+            </FadeIn>
+
+            {course.trainerName && (
+              <FadeIn delay={0.1}>
+                <div className="rounded-2xl border border-border bg-card p-7">
+                  <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+                    Your Trainer
+                  </p>
+                  <div className="mt-4 flex items-center gap-4">
+                    {course.trainerAvatar && (
+                      <div className="relative size-14 shrink-0 overflow-hidden rounded-full">
+                        <Image
+                          src={course.trainerAvatar}
+                          alt={course.trainerName}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    )}
+                    <div>
+                      <p className="font-semibold text-foreground">{course.trainerName}</p>
+                    </div>
+                  </div>
+                  {course.trainerBio && (
+                    <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                      {course.trainerBio}
+                    </p>
+                  )}
+                </div>
+              </FadeIn>
+            )}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

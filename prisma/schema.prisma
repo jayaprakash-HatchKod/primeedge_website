@@ -1,0 +1,101 @@
+// Prisma schema for PrimeEdge Software Institute
+// Connects to the same Supabase Postgres database used by supabase/migrations/*.sql.
+// Prisma uses a direct connection (DATABASE_URL) and is the source of truth for
+// application queries; supabase/migrations/*.sql is the source of truth for
+// RLS policies, storage buckets, and Supabase-specific SQL functions.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Course {
+  id            String   @id @default(cuid())
+  title         String
+  slug          String   @unique
+  description   String
+  highlights    String[] @default([])
+  duration      String
+  price         Int
+  thumbnail     String?
+  demoVideo1    String?  @map("demo_video_1")
+  demoVideo2    String?  @map("demo_video_2")
+  syllabusPdf   String?  @map("syllabus_pdf")
+  trainerName   String?  @map("trainer_name")
+  trainerBio    String?  @map("trainer_bio")
+  trainerAvatar String?  @map("trainer_avatar")
+  isActive      Boolean  @default(true) @map("is_active")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  students Student[]
+
+  @@map("courses")
+}
+
+model Student {
+  id              String   @id @default(cuid())
+  studentId       String   @unique @map("student_id")
+  name            String
+  email           String
+  mobile          String
+  city            String
+  university      String?
+  college         String?
+  branch          String?
+  qualification   String?
+  courseId        String   @map("course_id")
+  course          Course   @relation(fields: [courseId], references: [id])
+  razorpayOrderId String?  @map("razorpay_order_id")
+  paymentId       String?  @map("payment_id")
+  paymentStatus   String   @default("pending") @map("payment_status")
+  amount          Int?
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  @@map("students")
+}
+
+// Backs atomic, per-year sequential Student ID generation: PE-{year}-{seq}
+model StudentIdCounter {
+  year        Int @id
+  lastNumber  Int @default(0) @map("last_number")
+
+  @@map("student_id_counters")
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String
+  techStack   String[] @default([]) @map("tech_stack")
+  category    String?
+  thumbnail   String?
+  demoLink    String?  @map("demo_link")
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  leads ProjectLead[]
+
+  @@map("projects")
+}
+
+model ProjectLead {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  mobile    String
+  college   String?
+  branch    String?
+  projectId String   @map("project_id")
+  project   Project  @relation(fields: [projectId], references: [id])
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("project_leads")
+}
