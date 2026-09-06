@@ -12,11 +12,22 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   const email = process.env.NEXT_PUBLIC_INSTITUTE_EMAIL ?? "support@primeedge.in";
   const phone = process.env.NEXT_PUBLIC_INSTITUTE_PHONE ?? "+91 90000 00000";
+  const projectSupportPhone = process.env.NEXT_PUBLIC_PROJECT_SUPPORT_PHONE ?? "";
 
   const details = [
     { icon: Mail, label: "Email", value: email, href: `mailto:${email}` },
     { icon: Phone, label: "Phone", value: phone, href: `tel:${phone.replace(/\s+/g, "")}` },
-    { icon: MapPin, label: "Location", value: "Bengaluru, India" },
+    ...(projectSupportPhone
+      ? [
+          {
+            icon: Phone,
+            label: "Project Support",
+            value: projectSupportPhone,
+            href: `tel:${projectSupportPhone.replace(/\s+/g, "")}`,
+          },
+        ]
+      : []),
+    { icon: MapPin, label: "Location", value: "Hyderabad, India" },
     { icon: Clock, label: "Support Hours", value: "Mon–Sat, 9 AM – 7 PM IST" },
   ];
 

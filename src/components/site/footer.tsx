@@ -70,7 +70,7 @@ export function Footer() {
             </li>
             <li className="flex items-center gap-2">
               <MapPin className="size-4 shrink-0 text-slate-500" aria-hidden />
-              <span>Bengaluru, India</span>
+              <span>Hyderabad, India</span>
             </li>
           </ul>
         </div>

@@ -3,7 +3,12 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/shared/fade-in";
 
-const points = ["Live mentor-led sessions", "Real, hire-ready projects", "Placement assistance"];
+const points = [
+  "Live mentor-led sessions",
+  "Real, hire-ready projects",
+  "Placement assistance",
+  "Final year project support",
+];
 
 export function Hero() {
   return (
@@ -32,15 +37,14 @@ export function Hero() {
 
           <FadeIn delay={0.08}>
             <h1 className="mt-6 text-4xl leading-[1.1] font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
-              Build Skills. <span className="text-accent">Build Careers.</span>
+              Learn Skills. Build Projects. <span className="text-accent">Grow Your Career.</span>
             </h1>
           </FadeIn>
 
           <FadeIn delay={0.16}>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-300">
-              PrimeEdge Software Institute trains developers, data professionals, and designers
-              through live, mentor-led programs built around real projects — not just video
-              lectures.
+              The Prime Edge Technologies provides practical online training and end-to-end final
+              year project support to help students gain industry-ready skills and confidence.
             </p>
           </FadeIn>
 
@@ -50,6 +54,14 @@ export function Hero() {
                 <Link href="/courses">
                   Explore Courses <ArrowRight className="size-4" />
                 </Link>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                size="xl"
+                className="border-white/20 bg-transparent text-white hover:bg-white/10 hover:text-white"
+              >
+                <Link href="/final-year-projects">Explore Projects</Link>
               </Button>
               <Button
                 asChild

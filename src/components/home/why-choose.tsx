@@ -25,7 +25,7 @@ const reasons = [
     icon: Compass,
     title: "Career Guidance",
     description:
-      "Resume reviews, mock interviews, and placement assistance built into every program.",
+      "Resume templates, complete course materials, interview questions, LinkedIn profile optimization, and placement assistance built into every program.",
   },
 ];
 

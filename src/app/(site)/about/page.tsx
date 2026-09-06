@@ -29,7 +29,8 @@ const values = [
   {
     icon: Handshake,
     title: "Career support",
-    description: "Resume reviews, mock interviews, and referrals to roles in our network.",
+    description:
+      "Resume templates, complete course materials, interview questions, LinkedIn profile optimization, and placement assistance built into every program.",
   },
 ];
 
@@ -49,65 +50,6 @@ export default function AboutPage() {
               structured program with real deadlines, real projects, and real people guiding you
               through it.
             </p>
-          </FadeIn>
-        </div>
-      </section>
-
-      <section className="py-24 sm:py-28">
-        <div className="container-edge grid gap-16 lg:grid-cols-2 lg:items-center">
-          <FadeIn>
-            <SectionHeading
-              align="left"
-              eyebrow="Our Story"
-              title="Started by engineers who were tired of generic bootcamps"
-              className="mx-0"
-            />
-            <div className="mt-6 space-y-4 text-base leading-relaxed text-muted-foreground">
-              <p>
-                PrimeEdge started with a simple observation: most software training either moves
-                too slowly for working professionals or too fast for genuine beginners — and
-                almost none of it connects directly to what hiring managers are actually looking
-                for.
-              </p>
-              <p>
-                So we built a different model. Small live batches. Trainers who are still active
-                practitioners. Projects modeled on real production systems. And a support system
-                that continues well past the last class — including direct help with resumes,
-                interviews, and introductions to hiring partners.
-              </p>
-              <p>
-                We&apos;re now opening our founding batches across full stack development, data
-                science, cloud engineering, and design — each shaped by the same principle: build
-                skills that translate directly into careers.
-              </p>
-            </div>
-          </FadeIn>
-
-          <FadeIn delay={0.1}>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="col-span-2 rounded-2xl bg-primary p-8 text-white">
-                <p className="text-sm font-semibold tracking-wide text-accent uppercase">
-                  Founding Batch
-                </p>
-                <p className="mt-3 text-2xl font-semibold">Admissions are open</p>
-                <p className="mt-2 text-sm leading-relaxed text-slate-300">
-                  We&apos;re a new institute, and our first cohorts are forming now — which means
-                  smaller batches and direct access to the people who built the curriculum.
-                </p>
-              </div>
-              <div className="rounded-2xl border border-border bg-card p-6">
-                <p className="text-base font-semibold text-foreground">Live sessions</p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Taught in real time, not pre-recorded
-                </p>
-              </div>
-              <div className="rounded-2xl border border-border bg-card p-6">
-                <p className="text-base font-semibold text-foreground">Practitioner mentors</p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Trainers still working in the field
-                </p>
-              </div>
-            </div>
           </FadeIn>
         </div>
       </section>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Clock, IndianRupee, FileText, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Clock, IndianRupee, FileText, ArrowRight, CheckCircle2, Flame } from "lucide-react";
 import { getCourseBySlug } from "@/lib/data/courses";
 import { formatCurrency } from "@/lib/format";
 import { Button } from "@/components/ui/button";
@@ -93,12 +93,36 @@ export default async function CourseDetailsPage({ params }: Props) {
             </Button>
           </FadeIn>
 
-          {course.thumbnail && (
+          {demoVideos.length > 0 ? (
             <FadeIn delay={0.1}>
-              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
-                <Image src={course.thumbnail} alt={course.title} fill className="object-cover" priority />
+              <div className="space-y-4">
+                {demoVideos.map((src, i) => (
+                  <div key={i}>
+                    <p className="mb-2 text-xs font-semibold tracking-wide text-accent uppercase">
+                      {i === 0 ? "High-Level Overview" : "Course Demo"}
+                    </p>
+                    <div className="aspect-video overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl">
+                      <iframe
+                        src={src}
+                        title={`${course.title} ${i === 0 ? "high-level overview" : "course demo"}`}
+                        className="h-full w-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
             </FadeIn>
+          ) : (
+            course.thumbnail && (
+              <FadeIn delay={0.1}>
+                <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
+                  <Image src={course.thumbnail} alt={course.title} fill className="object-cover" priority />
+                </div>
+              </FadeIn>
+            )
           )}
         </div>
       </section>
@@ -121,29 +145,6 @@ export default async function CourseDetailsPage({ params }: Props) {
                 </ul>
               </FadeIn>
             )}
-
-            {demoVideos.length > 0 && (
-              <FadeIn delay={0.1}>
-                <h2 className="text-2xl font-semibold tracking-tight text-foreground">Demo Videos</h2>
-                <div className="mt-6 grid gap-6 sm:grid-cols-2">
-                  {demoVideos.map((src, i) => (
-                    <div
-                      key={i}
-                      className="aspect-video overflow-hidden rounded-2xl border border-border bg-black"
-                    >
-                      <iframe
-                        src={src}
-                        title={`${course.title} demo video ${i + 1}`}
-                        className="h-full w-full"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        loading="lazy"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </FadeIn>
-            )}
           </div>
 
           <div className="space-y-6 lg:sticky lg:top-24 lg:self-start">
@@ -152,6 +153,10 @@ export default async function CourseDetailsPage({ params }: Props) {
                 <p className="text-sm font-medium text-muted-foreground">Course Fee</p>
                 <p className="mt-1 text-3xl font-semibold text-foreground">
                   {formatCurrency(course.price)}
+                </p>
+                <p className="mt-3 flex items-center gap-1.5 text-xs font-medium text-amber-600">
+                  <Flame className="size-3.5" aria-hidden />
+                  Only few seats available
                 </p>
                 <Button asChild variant="accent" size="xl" className="mt-6 w-full">
                   <Link href={`/enroll?course=${course.slug}`}>Enroll Now</Link>

@@ -33,11 +33,6 @@ const faqs = [
     answer:
       "Every course includes resume reviews, mock interviews, and referrals to openings we come across through our network. We don't guarantee placement — what we commit to is actively supporting your job search.",
   },
-  {
-    question: "Can I get a refund if I change my mind?",
-    answer:
-      "Yes — reach out to our team within 7 days of enrollment for a full refund, provided you haven't attended more than one live session. See our Refund Policy for details.",
-  },
 ];
 
 export function FAQ() {

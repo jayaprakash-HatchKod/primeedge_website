@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { GraduationCap, Mail, Phone, MessageCircle, ArrowRight } from "lucide-react";
-import { getActiveProjects } from "@/lib/data/projects";
-import { ProjectCard } from "@/components/shared/project-card";
+import { GraduationCap, Mail, ArrowRight } from "lucide-react";
 import { FadeIn } from "@/components/shared/fade-in";
+import { WhatsAppIcon } from "@/components/shared/whatsapp-icon";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
@@ -24,11 +23,11 @@ const programs = [
   "M.A. Journalism",
 ];
 
-export default async function FinalYearProjectsPage() {
-  const projects = await getActiveProjects();
+export default function FinalYearProjectsPage() {
   const email =
     process.env.NEXT_PUBLIC_PROJECT_SUPPORT_EMAIL ?? "projectsupport@theprimeedgetechnologies.com";
-  const phone = process.env.NEXT_PUBLIC_INSTITUTE_PHONE ?? "";
+  const whatsapp = process.env.NEXT_PUBLIC_PROJECT_SUPPORT_PHONE ?? "";
+  const whatsappDigits = whatsapp.replace(/[^\d]/g, "");
 
   return (
     <>
@@ -61,7 +60,8 @@ export default async function FinalYearProjectsPage() {
               Projects available for
             </h2>
             <p className="mt-2 text-muted-foreground">
-              Tell us your program and we&apos;ll share the matching project list.
+              Tell us your program through WhatsApp or email only — no calls — and we&apos;ll share
+              the matching project list.
             </p>
           </FadeIn>
 
@@ -94,55 +94,32 @@ export default async function FinalYearProjectsPage() {
                 For more project details, contact us
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Reach out with your program and topic preference — our team will share available
-                projects, pricing, and delivery timelines.
+                Reach out with your program and topic preference over WhatsApp or email — our team
+                will share available projects, pricing, and delivery timelines.
               </p>
 
               <div className="mt-7 flex flex-wrap gap-3">
-                <Button asChild variant="accent" size="xl">
+                {whatsappDigits && (
+                  <Button asChild variant="accent" size="xl" className="bg-[#25D366] hover:bg-[#1ebe59]">
+                    <a
+                      href={`https://wa.me/${whatsappDigits}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <WhatsAppIcon className="size-4" />
+                      WhatsApp {whatsapp}
+                    </a>
+                  </Button>
+                )}
+                <Button asChild variant="outline" size="xl">
                   <a href={`mailto:${email}`}>
                     <Mail className="size-4" aria-hidden />
                     {email}
                   </a>
                 </Button>
-                {phone && (
-                  <Button asChild variant="outline" size="xl">
-                    <a href={`tel:${phone.replace(/\s/g, "")}`}>
-                      <Phone className="size-4" aria-hidden />
-                      {phone}
-                    </a>
-                  </Button>
-                )}
-                <Button asChild variant="outline" size="xl">
-                  <Link href="/contact">
-                    <MessageCircle className="size-4" aria-hidden />
-                    Send an enquiry
-                  </Link>
-                </Button>
               </div>
             </div>
           </FadeIn>
-
-          {projects.length > 0 && (
-            <div className="mt-20">
-              <FadeIn>
-                <h2 className="text-2xl font-semibold tracking-tight text-foreground">
-                  Sample projects
-                </h2>
-                <p className="mt-2 text-muted-foreground">
-                  A few examples from our catalog — request any of them directly.
-                </p>
-              </FadeIn>
-
-              <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {projects.map((project, i) => (
-                  <FadeIn key={project.id} delay={Math.min(i * 0.06, 0.3)}>
-                    <ProjectCard project={project} index={i} />
-                  </FadeIn>
-                ))}
-              </div>
-            </div>
-          )}
 
           <FadeIn delay={0.1}>
             <div className="mt-16 flex flex-col items-start gap-4 rounded-2xl bg-muted px-8 py-7 sm:flex-row sm:items-center sm:justify-between">

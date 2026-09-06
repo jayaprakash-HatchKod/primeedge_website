@@ -20,7 +20,7 @@ export function Logo({ className, dark }: { className?: string; dark?: boolean }
           alt="The PrimeEdge Technologies"
           width={542}
           height={272}
-          className="h-9 w-auto"
+          className="h-12 w-auto sm:h-14"
           priority
         />
       </span>

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Logo } from "@/components/site/logo";
 import { Button } from "@/components/ui/button";
 import { MobileNav } from "@/components/site/mobile-nav";
+import { cn } from "@/lib/utils";
 
 const links = [
   { href: "/", label: "Home" },
@@ -18,15 +19,28 @@ export function Navbar() {
         <Logo />
 
         <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {links.map((link) => {
+            const isProjects = link.href === "/final-year-projects";
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  "flex items-center gap-1.5 text-sm font-medium transition-colors",
+                  isProjects
+                    ? "font-semibold text-accent hover:text-accent/80"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                {link.label}
+                {isProjects && (
+                  <span className="rounded-full bg-accent/15 px-1.5 py-0.5 text-[10px] font-bold tracking-wide text-accent uppercase">
+                    New
+                  </span>
+                )}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
