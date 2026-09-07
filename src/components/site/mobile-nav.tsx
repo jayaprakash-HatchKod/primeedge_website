@@ -33,7 +33,7 @@ export function MobileNav({ links }: { links: { href: string; label: string }[] 
                   href={link.href}
                   onClick={() => setOpen(false)}
                   className={cn(
-                    "flex items-center gap-2 rounded-lg px-3 py-3 text-base font-medium transition-colors hover:bg-muted",
+                    "flex items-center gap-2 rounded-lg px-3 py-3 text-base font-medium transition-colors hover:bg-accent/10 hover:text-accent",
                     isProjects ? "text-accent" : "text-foreground",
                   )}
                 >

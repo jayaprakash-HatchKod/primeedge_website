@@ -29,7 +29,7 @@ export function Navbar() {
                   "flex items-center gap-1.5 text-sm font-medium transition-colors",
                   isProjects
                     ? "font-semibold text-accent hover:text-accent/80"
-                    : "text-muted-foreground hover:text-foreground",
+                    : "text-muted-foreground hover:text-accent",
                 )}
               >
                 {link.label}

@@ -1,31 +1,32 @@
-import { GraduationCap, Hammer, Radio, Compass } from "lucide-react";
+import { Target, Laptop, Users, Rocket, Briefcase } from "lucide-react";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { StaggerGroup, StaggerItem } from "@/components/shared/fade-in";
 
 const reasons = [
   {
-    icon: GraduationCap,
-    title: "Expert Trainers",
-    description:
-      "Learn from professionals who have shipped software at real companies, not just certified instructors.",
+    icon: Target,
+    title: "Outcome-Focused Learning",
+    description: "Skills designed around real career goals.",
   },
   {
-    icon: Hammer,
-    title: "Practical Learning",
-    description:
-      "Every course is built around projects you can show in an interview, not just slides and quizzes.",
+    icon: Laptop,
+    title: "Practical Training",
+    description: "Learn through hands-on projects, not just theory.",
   },
   {
-    icon: Radio,
-    title: "Live Sessions",
-    description:
-      "Attend live classes with real-time doubt clearing — no waiting days for a forum reply.",
+    icon: Users,
+    title: "Live Mentorship",
+    description: "Get guidance and support from experienced trainers.",
   },
   {
-    icon: Compass,
-    title: "Career Guidance",
-    description:
-      "Resume templates, complete course materials, interview questions, LinkedIn profile optimization, and placement assistance built into every program.",
+    icon: Rocket,
+    title: "Final-Year Project Support",
+    description: "End-to-end guidance to successfully complete your project.",
+  },
+  {
+    icon: Briefcase,
+    title: "Industry-Ready Skills",
+    description: "Build practical knowledge and project experience for the job market.",
   },
 ];
 
@@ -35,11 +36,11 @@ export function WhyChoose() {
       <div className="container-edge">
         <SectionHeading
           eyebrow="Why PrimeEdge"
-          title="A training experience built around outcomes"
-          description="We designed PrimeEdge around one question: what actually gets someone hired? Everything else follows from there."
+          title="Why Choose PrimeEdge Technologies?"
+          description="Learn practically. Build confidently. Get career-ready."
         />
 
-        <StaggerGroup className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <StaggerGroup className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {reasons.map((reason) => (
             <StaggerItem key={reason.title}>
               <div className="h-full rounded-2xl border border-border bg-card p-7 transition-colors hover:border-accent/30">
