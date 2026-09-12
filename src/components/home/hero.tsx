@@ -88,25 +88,31 @@ export async function Hero() {
         </div>
 
         {heroVideoUrl && (
-          <FadeIn delay={0.12} className="w-full lg:flex-1">
-            <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl sm:aspect-video lg:aspect-[4/3] lg:min-w-[440px]">
-              {DIRECT_VIDEO_FILE.test(heroVideoUrl) ? (
-                <video
-                  src={heroVideoUrl}
-                  controls
-                  className="h-full w-full object-cover"
-                  aria-label="PrimeEdge introduction video"
-                />
-              ) : (
-                <iframe
-                  src={heroVideoUrl}
-                  title="PrimeEdge introduction video"
-                  className="h-full w-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  loading="lazy"
-                />
-              )}
+          <FadeIn delay={0.12} className="relative w-full lg:flex-[1.3]">
+            <div
+              className="pointer-events-none absolute -inset-6 rounded-[2.5rem] bg-gradient-to-br from-accent/40 via-accent/10 to-transparent blur-2xl"
+              aria-hidden
+            />
+            <div className="relative rounded-[28px] bg-gradient-to-br from-accent via-blue-400 to-accent/30 p-[3px] shadow-2xl">
+              <div className="aspect-[4/3] w-full overflow-hidden rounded-[25px] bg-black sm:aspect-video lg:aspect-[4/3] lg:min-w-[500px]">
+                {DIRECT_VIDEO_FILE.test(heroVideoUrl) ? (
+                  <video
+                    src={heroVideoUrl}
+                    controls
+                    className="h-full w-full object-cover"
+                    aria-label="PrimeEdge introduction video"
+                  />
+                ) : (
+                  <iframe
+                    src={heroVideoUrl}
+                    title="PrimeEdge introduction video"
+                    className="h-full w-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    loading="lazy"
+                  />
+                )}
+              </div>
             </div>
           </FadeIn>
         )}
