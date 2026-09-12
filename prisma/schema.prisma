@@ -102,3 +102,13 @@ model ProjectLead {
 
   @@map("project_leads")
 }
+
+// Single-row table for site-wide, admin-editable homepage content
+// (currently just the hero video). Row is always keyed "site".
+model SiteSetting {
+  id           String   @id @default("site")
+  heroVideoUrl String?  @map("hero_video_url")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("site_settings")
+}
