@@ -3,6 +3,7 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/shared/fade-in";
 import { getSiteSettings } from "@/lib/data/site-settings";
+import { toEmbeddableVideoUrl } from "@/lib/video-embed";
 
 const points = [
   "Live mentor-led sessions",
@@ -15,7 +16,7 @@ const DIRECT_VIDEO_FILE = /\.(mp4|webm|ogg)$/i;
 
 export async function Hero() {
   const settings = await getSiteSettings();
-  const heroVideoUrl = settings?.heroVideoUrl;
+  const heroVideoUrl = settings?.heroVideoUrl ? toEmbeddableVideoUrl(settings.heroVideoUrl) : null;
 
   return (
     <section className="relative overflow-hidden bg-primary text-white">
@@ -34,7 +35,7 @@ export async function Hero() {
       />
 
       <div className="container-edge relative flex flex-col gap-10 py-24 sm:py-28 lg:flex-row lg:items-center lg:py-32">
-        <div className="max-w-2xl">
+        <div className="max-w-2xl lg:max-w-xl">
           <FadeIn>
             <h1 className="text-4xl leading-[1.1] font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
               Learn Skills. Build Projects. <span className="text-accent">Grow Your Career.</span>
@@ -87,8 +88,8 @@ export async function Hero() {
         </div>
 
         {heroVideoUrl && (
-          <FadeIn delay={0.12} className="lg:flex-1">
-            <div className="aspect-video overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl">
+          <FadeIn delay={0.12} className="w-full lg:flex-1">
+            <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl sm:aspect-video lg:aspect-[4/3] lg:min-w-[440px]">
               {DIRECT_VIDEO_FILE.test(heroVideoUrl) ? (
                 <video
                   src={heroVideoUrl}

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { Clock, IndianRupee, FileText, ArrowRight, CheckCircle2, Flame } from "lucide-react";
 import { getCourseBySlug } from "@/lib/data/courses";
 import { formatCurrency } from "@/lib/format";
+import { toEmbeddableVideoUrl } from "@/lib/video-embed";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/shared/fade-in";
 
@@ -35,7 +36,9 @@ export default async function CourseDetailsPage({ params }: Props) {
 
   if (!course) notFound();
 
-  const demoVideos = [course.demoVideo1, course.demoVideo2].filter(Boolean) as string[];
+  const demoVideos = [course.demoVideo1, course.demoVideo2]
+    .filter(Boolean)
+    .map((url) => toEmbeddableVideoUrl(url as string));
 
   const jsonLd = {
     "@context": "https://schema.org",
