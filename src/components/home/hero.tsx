@@ -27,29 +27,23 @@ export function Hero() {
         aria-hidden
       />
 
-      <div className="container-edge relative flex flex-col gap-10 py-24 sm:py-28 lg:flex-row lg:items-center lg:py-32">
-        <div className="max-w-2xl">
-          <FadeIn>
-            <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wide text-slate-300 uppercase">
-              Admissions open for 2026 batches
-            </span>
-          </FadeIn>
-
+      <div className="container-edge relative flex flex-col items-center py-24 text-center sm:py-28 lg:py-32">
+        <div className="max-w-3xl">
           <FadeIn delay={0.08}>
-            <h1 className="mt-6 text-4xl leading-[1.1] font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
+            <h1 className="text-4xl leading-[1.1] font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
               Learn Skills. Build Projects. <span className="text-accent">Grow Your Career.</span>
             </h1>
           </FadeIn>
 
           <FadeIn delay={0.16}>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-300">
+            <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-slate-300">
               The Prime Edge Technologies provides practical online training and end-to-end final
               year project support to help students gain industry-ready skills and confidence.
             </p>
           </FadeIn>
 
           <FadeIn delay={0.24}>
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center">
               <Button asChild variant="accent" size="xl">
                 <Link href="/courses">
                   Explore Courses <ArrowRight className="size-4" />
@@ -75,7 +69,7 @@ export function Hero() {
           </FadeIn>
 
           <FadeIn delay={0.32}>
-            <ul className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-x-8 sm:gap-y-3">
+            <ul className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-8 sm:gap-y-3">
               {points.map((point) => (
                 <li key={point} className="flex items-center gap-2 text-sm text-slate-300">
                   <CheckCircle2 className="size-4 text-accent" aria-hidden />

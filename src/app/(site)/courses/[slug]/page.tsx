@@ -175,36 +175,6 @@ export default async function CourseDetailsPage({ params }: Props) {
                 )}
               </div>
             </FadeIn>
-
-            {course.trainerName && (
-              <FadeIn delay={0.1}>
-                <div className="rounded-2xl border border-border bg-card p-7">
-                  <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
-                    Your Trainer
-                  </p>
-                  <div className="mt-4 flex items-center gap-4">
-                    {course.trainerAvatar && (
-                      <div className="relative size-14 shrink-0 overflow-hidden rounded-full">
-                        <Image
-                          src={course.trainerAvatar}
-                          alt={course.trainerName}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    )}
-                    <div>
-                      <p className="font-semibold text-foreground">{course.trainerName}</p>
-                    </div>
-                  </div>
-                  {course.trainerBio && (
-                    <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                      {course.trainerBio}
-                    </p>
-                  )}
-                </div>
-              </FadeIn>
-            )}
           </div>
         </div>
       </section>

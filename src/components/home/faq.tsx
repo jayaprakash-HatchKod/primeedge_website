@@ -7,31 +7,27 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_PROJECT_SUPPORT_PHONE ?? "+91 78421 67853";
+
 const faqs = [
   {
-    question: "Do I need prior programming experience to enroll?",
+    question: "How to enroll for a course?",
     answer:
-      "Most of our courses start from fundamentals, so no prior experience is required. Each course page lists any recommended background so you know exactly what to expect.",
+      "You can join by paying from our site. Immediately after payment, you will receive a confirmation from us to guide you through the further process.",
   },
   {
-    question: "How are classes conducted?",
+    question: "Where can I watch the demo video of the course?",
     answer:
-      "Sessions are live and conducted over Google Meet. After enrollment, our team shares your class schedule, Meet link, and a Telegram group link for ongoing support directly over email.",
+      "You can watch the demo video directly on the respective course page. Simply visit the course you are interested in and watch the available demo video before enrolling.",
   },
   {
-    question: "Is there a certificate after completion?",
-    answer:
-      "Yes, students who complete the course and capstone project receive a PrimeEdge certificate of completion, along with a portfolio-ready project to showcase.",
+    question:
+      "I am a final-year student and enrolled in a course. When will I receive my final-year project and support?",
+    answer: `Once you enroll in the course, you will receive a confirmation email. Take a screenshot of the confirmation email and send it to our WhatsApp number ${WHATSAPP_NUMBER}, along with your course details (such as CSE, MCA, MBA, BBA, etc.).\n\nWe will then share a list of available final-year projects with you. You can select the project that best suits your requirements.\n\nOnce you select your project, we will send you the complete project within 3 working days, along with the necessary final-year project support and guidance.`,
   },
   {
-    question: "What payment methods are supported?",
-    answer:
-      "We accept all major cards, UPI, netbanking, and wallets through our secure Razorpay checkout. Payments are processed instantly and you'll receive a confirmation with your Student ID.",
-  },
-  {
-    question: "Do you offer placement assistance?",
-    answer:
-      "Every course includes resume reviews, mock interviews, and referrals to openings we come across through our network. We don't guarantee placement — what we commit to is actively supporting your job search.",
+    question: "If I didn't like the course after joining, will I get my refund?",
+    answer: "Sorry, no refunds.",
   },
 ];
 
@@ -48,7 +44,9 @@ export function FAQ() {
                 <AccordionTrigger className="text-left text-base font-medium">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">{faq.answer}</AccordionContent>
+                <AccordionContent className="text-muted-foreground whitespace-pre-line">
+                  {faq.answer}
+                </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>

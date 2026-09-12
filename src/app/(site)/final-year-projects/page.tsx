@@ -26,7 +26,7 @@ const programs = [
 export default function FinalYearProjectsPage() {
   const email =
     process.env.NEXT_PUBLIC_PROJECT_SUPPORT_EMAIL ?? "projectsupport@theprimeedgetechnologies.com";
-  const whatsapp = process.env.NEXT_PUBLIC_PROJECT_SUPPORT_PHONE ?? "";
+  const whatsapp = process.env.NEXT_PUBLIC_PROJECT_SUPPORT_PHONE ?? "+91 78421 67853";
   const whatsappDigits = whatsapp.replace(/[^\d]/g, "");
 
   return (
