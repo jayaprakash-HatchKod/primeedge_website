@@ -6,6 +6,8 @@ import { HowItWorks } from "@/components/home/how-it-works";
 import { FAQ } from "@/components/home/faq";
 import { ContactCTA } from "@/components/home/contact-cta";
 
+export const revalidate = 60;
+
 export default function HomePage() {
   return (
     <>
